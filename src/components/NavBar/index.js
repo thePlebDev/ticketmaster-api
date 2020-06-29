@@ -1,15 +1,29 @@
-import React,{ useState } from 'react';
-import {Link} from 'react-router-dom'
+import React,{ useState,useRef,useEffect } from 'react';
+import {Link} from 'react-router-dom';
+
 
 
 const NavBar = ({navLinks})=>{
   const [hoverIndex,setHoverIndex] = useState(-1);
   const [navOpen, setNavOpen] = useState(false);
+  const ulNode = useRef(null);
 
-  const handleClick=()=>{
-    setNavOpen(!navOpen)
-    console.log(navOpen)
+  const handleOutsideClick=(event)=>{
+    if(ulNode && ulNode.current.contains(event.target)){
+      setNavOpen(!navOpen)
+    }else{
+      setNavOpen(false)
+    }
   }
+
+useEffect(()=>{
+  document.addEventListener('click',handleOutsideClick)
+
+  return()=>{
+    document.removeEventListener('click',handleOutsideClick)
+  }
+})
+
 
 
   return(
@@ -18,9 +32,14 @@ const NavBar = ({navLinks})=>{
     >
     <div className="logo-container">
       <div className={'logo'}>Logo</div>
-      <div onClick={()=>handleClick()}><i className="fas fa-bars"></i></div>
+      <div
+      className='close-button'
+      ref={ulNode}
+      ><i className="fas fa-bars"></i></div>
     </div>
-      <ul className={navOpen? 'ul-container': 'ul-container-close'} style={{background:'background'}}>
+      <ul
+        className={navOpen? 'ul-container': 'ul-container-close'}
+        style={{background:'background'}}>
         {navLinks.map((link,index)=>{
           return<li key={link.key}
                   onMouseEnter={ ()=> setHoverIndex(index)}

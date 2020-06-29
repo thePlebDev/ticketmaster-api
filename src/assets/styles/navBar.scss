@@ -23,6 +23,7 @@ nav.nav-conainer{
     font-size: 30px;
     letter-spacing: 2px;
     opacity: 0.8;
+    transition: opacity 0.2s,height 0.2s;
     li{
       display: flex;
       color: white;
@@ -39,7 +40,13 @@ nav.nav-conainer{
 
   .ul-container-close{
     height: 0;
-    transition: opacity 0.9s ease;
+    opacity: 0;
+
+    a{
+      display: none;
+    }
+
+
   }
 
   .logo-container{
@@ -52,4 +59,5 @@ nav.nav-conainer{
     justify-content: space-between;
     padding: 0 10px;
   }
+
 }
