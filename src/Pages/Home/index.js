@@ -1,5 +1,6 @@
 import React from 'react';
 
+import HomeRequest from '../../components/HomeRequest';
 
 
 const Home = ()=>{
@@ -7,7 +8,7 @@ const Home = ()=>{
   return(
 
     <div>
-      <h1>Home</h1>
+      <HomeRequest />
     </div>
   )
 }

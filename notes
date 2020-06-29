@@ -1,0 +1,112 @@
+
+(DONE)1) NAVBAR
+2)THE API CALL
+2) STYLE THE HOME PAGE
+---------desktop version----------------
+
+
+
+
+CREATING THE NAVBAR:
+- so I think that this is going to be a pretty normal nav-barand the only thing I want on it is a big old search input
+with a search Icon
+-  the first thing that we are going to do is to create the fake data that is going to go into our NavBar in the app folder
+
+- so we are going to create the hover index that will change depending on if we are hovering over the link or not
+and the navOpen state. this state will be triggered when the nav menu is meant to be open or not.
+- we have the ul and for each item in the fake data we are going to create a li will the appropriate stuff.
+
+- so when creating a navigation we should keep a few thigns in mind and they are below
+
+1) create a nav tag
+2) create a ul element and have li elements inside of it
+3) to make things more dynamic have the li be rendered from the props that are passed into the element. These are the
+main steps once we have this in place then its pretty much just styling to do.
+4) create a hover effect. this can be done with javascript and use state, while togeling a classname or you could just
+use the pusedo css class
+5) when we want to make the ul to be layed out properly we just set the display to flex and then use the flex box
+
+CREATING THE RESPONSIVE NAVIGATION:
+-we should actually do this first but, next time we do this first, it makes loading faster.
+- damn so since I didnt make the RESPONSIVE navigation first
+- so we got how we want it to look, lets see if we can get css transtions to work
+- for right now the
+- we got the animation figured out for the basic slide down of the menu. now lets work on the ref.
+
+REACT REF:
+- we are going to use a ref to check if a click is outside of the navbar or not
+- we are going to have to use the useRef hook for this one.
+- useRef returns a mutable object whose .current property is initialized to the passed argument
+        const refContainer = useRef(initialValue)
+- when we will first create the ref, we will set the initial value to null and then it will get its value
+when we assign it to the object
+- I think we will still have to hack around it but that shouldn't bee too bad.
+- we are also going to use the useEffect ot add the event listener to the document to detect the click
+
+REACT EVENT LISTENERS:
+-react uses a single event listener per single event type to invoke all submitted handlers with the virtual dom
+- so react uses only one event one event listener per event type to invoke all the submitted handlers of  the virtual
+dom, this means that the there is on handler for click events and one for mouseon events and so on
+- in react when an event happens react defines it as a synthetic event
+
+- our event handlers will be passed instances of syntheticEvent, which is a cross-browser wrapper around the browser's
+native event
+- the syntheticEvent is pooled. This means that the syntheticEvent object will be resued and all the properties will
+be nullified after the event callback has been invoked.
+-so a synthetic event is just an object that gets created and has cross browser capability and has the same interface
+as the native event.
+-so pretty straight forward, very bueno.
+
+
+DETECTING THE CLICK:
+1) create the ref using node = useRef(null) make its initial value null. this creates an objec that will persist the full
+lifetime of the object
+2) assign it to the object. ref={node}. the ref object on the react element sets its current property to the
+corresponding DOM node whenever that node changes
+3) add the event listeners on the DOM but using useEffect make sure that they get cleaned up or eles we may get a
+memory leak, that would be no bueno.
+
+
+THE API CALLS:
+-so it seems pretty straight forward. we send a request and get a response back. so we want to find music and tech events
+
+music events:
+- so we get 5000api requests per day and a rate limiting of 5 requests per second and the page size has to be smaller
+than 1000 request items
+- so it looks like we have the base url https://app.ticketmaster.com/discovery/v2/events.json?
+- then we have the queries classificationName=music&dmaId=324
+- followed by the api key &apikey=z8pipqaTCCTQc1R0OGDLl4bnygjdiXH3
+
+classificationName: this helps with filtering for a genre
+dmaId: is some kind of id that is used for filtering.
+-so now I want to be able to get musiv events that are close to me
+- the API, super easy, we just have to make sure to not send the api requests in the URL
+
+- now we need to figure out how we are going to display the information. I really want a spinner like Netflix, so
+lets try to make that.
+
+WHEN DOES REACT DECIDE TO RERENDER SOMETHING:
+
+1)a re-render can only be triggered if a component's state has changed,the props changing can count as a state change
+-so more or less whenever something changes it causes a reload.
+
+
+CREATING THE IMAGE SLIDER:
+- so the first thing that we are going to do is to create a card that will be used to display the image. That card
+is going to be passed the images. we wrap that card in two div components. the first div will be used to align the card
+to the center of the page and the second div will be used to show all the cards next to eachother
+- so we are going to loop over the images and for each image we are going to render a card. we will be using map()
+for this.
+- what does map do?. the map() method creates a new array populated with the results of calling a provided function on
+every element in the calling array. so in our case it is going to create a new array that will have a card compoenent
+for every image. Map takes a callback and calls it once for every element in the array that it is called on
+
+-the desired effect after we loop over everything is that is should be a a bunch of images stacked on top of eachother
+
+- on the wrapper div we want to set the displayto flex so that we get them aligned side by side and then on the
+card element itself we set flex to 1
+
+WHITE SPACE TO THE RIGHT BUG:
+- when this bug happens it seems to be due to some kind of disconnect with the html and the body, you need to apply the
+following rules to the body and html. width and height both set to 100%, the margin and padding set to 0 and the
+overflow-x set to hidden.
