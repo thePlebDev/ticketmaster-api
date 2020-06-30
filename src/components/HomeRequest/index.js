@@ -21,6 +21,39 @@ const HomeRequest = ()=>{
     {
       index:3,
       picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
+    },{
+      index:0,
+      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
+    },
+    {
+      index:1,
+      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
+    },
+    {
+      index:2,
+      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
+    },
+    {
+      index:3,
+      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
+    },{
+      index:3,
+      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
+    },{
+      index:0,
+      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
+    },
+    {
+      index:1,
+      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
+    },
+    {
+      index:2,
+      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
+    },
+    {
+      index:3,
+      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
     }
   ]
 
@@ -45,19 +78,23 @@ const HomeRequest = ()=>{
   }
 
   return(
-    <div>
-      <div className={`cards-slider active-slide-${index}`}>
-        <div className="cards-slider-wrapper"
-          style={{transform:`translateX(-${index*(100/fakeInfo.length)}%)`}}>
-          {
-            fakeInfo.map((item,index)=>{
-              return <ImageSlider images={item.picture} index={index} />
-            })
-          }
-        </div>
-      </div>
-      <button type='button' className='button-one' onClick={()=>{next()}}>Next</button>
-      <button type='button' className='buttons-two' onClick={()=>{previous()}}>Previous</button>
+    <div className="item-container">
+       <div className="item-container-wrapper"
+        style={{transform:`translateX(-${index*(100/fakeInfo.length)}%)`}}
+       >
+           {
+             fakeInfo.map((item,index)=>{
+               return <ImageSlider images={item.picture} key={index} />
+             })
+           }
+       </div>
+       <button type='button' className='button-1' onClick={()=>next()}>
+            <i class="fas fa-arrow-right"></i>
+       </button>
+       <button type='button' className='button-2' onClick={()=>previous()}>
+            <i class="fas fa-arrow-left"></i>
+       </button>
+
     </div>
   )
 }

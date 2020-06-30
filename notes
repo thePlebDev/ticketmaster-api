@@ -103,10 +103,54 @@ for every image. Map takes a callback and calls it once for every element in the
 
 -the desired effect after we loop over everything is that is should be a a bunch of images stacked on top of eachother
 
-- on the wrapper div we want to set the displayto flex so that we get them aligned side by side and then on the
+- on the wrapper div we want to set the display to flex so that we get them aligned side by side and then on the
 card element itself we set flex to 1
 
 WHITE SPACE TO THE RIGHT BUG:
 - when this bug happens it seems to be due to some kind of disconnect with the html and the body, you need to apply the
 following rules to the body and html. width and height both set to 100%, the margin and padding set to 0 and the
 overflow-x set to hidden.
+
+- then we are setting the wrapper to absolute and to create the scrolling effect we are just going to change its position.
+form left to right, this will create the wanted scrolling effect
+
+- The card-slider-element is the thing that is going to get animated. we have created a wrapper that contains every image
+from our data and we are going to move that for our animation.
+- so when we hit the next button we are going to move the card-slide-wrapper
+- the card-slider is just for positioning the card-slider-wrapper in the middle of the page.
+- we are going to build it one more time by guided and then we will try to make it in our own style for the
+the attempt after that and really try to do things on our own. the last half of the video gets technical but we just
+have to take things slow and we should be able to get through them just fine.
+
+
+SASS LOOPS:
+
+@for <varible> from <expression> to <expression> {...}
+                or
+@for <variable> from <expression> through <expression> {...}
+
+
+CREATING THE IMAGE SLIDER:
+
+1) create the card
+- creating the card means creating how the layout will look.
+
+2) create the surrounding divs
+- this entails creating two divs one called image-slider and the other called image-slider-wrapper. the slider will
+be used to display flex and will be used to center the thing on the screen its position will be set to relative.
+so that in the future it will be used as the relative point for things that are set the position absolute.
+
+3) map() over the info that we are getting back.
+- in this app we have created some fake data but in real like this is where we would get the info back from the
+backend and we would use that for the mapping
+-simply call map on the data to create new images. this will create a new image component for every image that is
+coming form the data.They should be aligned one on top of the other.
+
+4) style the new image components
+- on the image-slider-wrapper we need to set the display to flex, this will load the images and have them go off the page
+make sure that overflow-X:hidden or else we will get a horzontal scroll bar and we do not want that.
+
+5) make the image-slider-wrapper absolute
+- this is actually what we will be animating. the image-slider-wrapper is a container for all the image components
+and we will be moving it in order to create the illusion of a fluid scroll effect. This is why we are going to set
+its position to absolute, so that we can freely manipulate the position of it with our buttons.

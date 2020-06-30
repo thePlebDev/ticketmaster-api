@@ -1,12 +1,10 @@
 import React,{useState} from 'react';
 
 
-const ImageSlider = ({images,index})=>{
-
-
+const ImageSlider = ({images})=>{
 
   return(
-    <div className="image-container" id={`card-${index}`}>
+    <div className="image-container" >
       <img src={images} alt='kitty'/>
     </div>
   )
