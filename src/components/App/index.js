@@ -5,6 +5,7 @@ import NavBar from '../NavBar'
 import Home from '../../Pages/Home';
 import Meetings from '../../Pages/Meetings';
 import Music from '../../Pages/Music';
+import IndividualPage from '../IndividualPage'
 import NotFound from '../../Pages/404';
 
 const App = ()=>{
@@ -37,6 +38,7 @@ const App = ()=>{
         <Route path='/' component={Home} exact/>
         <Route path='/music' component={Music}/>
         <Route path='/meetings' component={Meetings}/>
+        <Route path='/event/:id' component={IndividualPage}/>
         <Route component={NotFound} />
       </Switch>
         <h1>App</h1>

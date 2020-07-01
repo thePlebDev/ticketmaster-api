@@ -14,6 +14,7 @@ const HomeRequest = ()=>{
   const [images,setImages] = useState([])
   const [titles,setTitles] = useState([])
   const [dates,setDates] = useState([])
+  const [id,setID] = useState([])
 
 
   useEffect(()=>{
@@ -30,13 +31,17 @@ const HomeRequest = ()=>{
         const dateData = asyncData.map(item=>{
           return item.dates.start.localDate
         })
+        const idDate = asyncData.map(item=>{
+          return item.id
+        })
 
-        return [imageData,nameData,dateData]
+        return [imageData,nameData,dateData,idDate]
       })
       .then(result=>{
         setImages(result[0])
         setTitles(result[1])
         setDates(result[2])
+        setID(result[3])
         setIsLoading(false)
       })
       .catch(err=>console.log(err))
@@ -72,6 +77,7 @@ const HomeRequest = ()=>{
                         images={item}
                         titles={titles[index]}
                         dates={dates[index]}
+                        ids={id[index]}
                         key={index} />
 
              })
