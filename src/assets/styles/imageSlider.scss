@@ -51,9 +51,24 @@ position: relative;
 }
 
 div.image-container{
+  position: relative;
   flex: 1;
   margin: 5px;
-  transition: transform 300ms ease 100ms
+  transition: transform 300ms ease 100ms;
+
+  .image-info{
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: black;
+    opacity: 0.8;
+    color:white;
+    position: absolute;
+    bottom: 5px;
+  }
 }
 
 //sliding over to the left

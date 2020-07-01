@@ -1,67 +1,50 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios';
 
 import ImageSlider from '../ImageSlider';
 
 const HomeRequest = ()=>{
   // https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=1&dmaId=527&apikey=z8pipqaTCCTQc1R0OGDLl4bnygjdiXH3
   // this is a full api request to one event that is inside of toronto.
-  const fakeInfo =[
-    {
-      index:0,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:1,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },
-    {
-      index:2,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:3,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },{
-      index:0,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:1,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },
-    {
-      index:2,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:3,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },{
-      index:3,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },{
-      index:0,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:1,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    },
-    {
-      index:2,
-      picture:'https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80'
-    },
-    {
-      index:3,
-      picture:'https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1360&q=80'
-    }
-  ]
+
 
   const [index,setIndex] = useState(0)
+  const [data,setData] = useState('')
+  const[isLoading,setIsLoading] = useState(true)
+  const [images,setImages] = useState([])
+  const [titles,setTitles] = useState([])
+  const [dates,setDates] = useState([])
+
+
+  useEffect(()=>{
+    axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=10&dmaId=527&')
+      .then(doc=>{
+        const asyncData = doc.data._embedded.events
+
+        const imageData = asyncData.map(item=>{
+          return item.images[0].url
+        })
+        const nameData = asyncData.map(item=>{
+          return item.name
+        })
+        const dateData = asyncData.map(item=>{
+          return item.dates.start.localDate
+        })
+
+        return [imageData,nameData,dateData]
+      })
+      .then(result=>{
+        setImages(result[0])
+        setTitles(result[1])
+        setDates(result[2])
+        setIsLoading(false)
+      })
+      .catch(err=>console.log(err))
+
+  },[])
 
   const next =()=>{
-    console.log('clicked')
-    if(index < fakeInfo.length-1){
+    if(index < images.length-1){
       setIndex(index + 1)
     }else{
       setIndex(0)
@@ -69,30 +52,37 @@ const HomeRequest = ()=>{
   }
 
   const previous =()=>{
-    console.log('clicked')
     if(index > 0){
       setIndex(index - 1)
     }else{
-      setIndex(fakeInfo.length - 1)
+      setIndex(images.length - 1)
     }
   }
 
   return(
     <div className="item-container">
        <div className="item-container-wrapper"
-        style={{transform:`translateX(-${index*(100/fakeInfo.length)}%)`}}
+        style={{transform:`translateX(-${index*(100/images.length)}%)`}}
        >
-           {
-             fakeInfo.map((item,index)=>{
-               return <ImageSlider images={item.picture} key={index} />
+           { isLoading? (
+                <h1>Loading...</h1>
+              ):(
+              images.map((item,index)=>{
+               return <ImageSlider
+                        images={item}
+                        titles={titles[index]}
+                        dates={dates[index]}
+                        key={index} />
+
              })
+           )
            }
        </div>
        <button type='button' className='button-1' onClick={()=>next()}>
-            <i class="fas fa-arrow-right"></i>
+            <i className="fas fa-arrow-right"></i>
        </button>
        <button type='button' className='button-2' onClick={()=>previous()}>
-            <i class="fas fa-arrow-left"></i>
+            <i className="fas fa-arrow-left"></i>
        </button>
 
     </div>
