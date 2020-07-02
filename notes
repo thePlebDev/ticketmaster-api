@@ -154,3 +154,182 @@ make sure that overflow-X:hidden or else we will get a horzontal scroll bar and 
 - this is actually what we will be animating. the image-slider-wrapper is a container for all the image components
 and we will be moving it in order to create the illusion of a fluid scroll effect. This is why we are going to set
 its position to absolute, so that we can freely manipulate the position of it with our buttons.
+
+6) add the inline styles for the scrolling animation
+- since it is the image-scroller-wrapper that is going to be doing the moving, we are going to give it an inline style.
+The inline style is going to give us access to all the elements so it will allow us to do some calculations in order to
+perform the right amount of sliding
+
+                              'transform':`translateX(-${index*(100/fakeInfo.length)}%)`
+
+- this transform property will give us the animation that we want. but what even is transform. transform allows us
+to create alot of interesting things with css. it is diferent than translate in that it doesnt have the ability to
+gradualy change over time but it can perform more complex stuff.
+- the ::before and after elements allows us to insert content onto a page without it needing to be in HTML
+- the after content is also "after" in source-order, so it will position on top of ::before if stacked on top of
+eachother naturally
+
+
+CREATING THE NEXTFLIX LIKE IMAGE SLIDER:
+
+- so the staring premise is pretty basic, first we need to create a container with some items in it. set the outer
+container to display: flex so that we can get the proper layout on the items. then we style the individual items
+to get them the right size. we also put a transition property with the values of transform 300ms ease 100ms. so
+that is telling us that we are going to do some transforms at some point
+
+pushing the item to the left side:
+- we have to move all of the elements to the left side of the container. So when we hover the contianer, all of
+the elements should move to the left. we go:
+
+                      .item-container:hover .item{
+                        transform: translate(-25%);
+                      }
+
+  - this says that whenever we hover of the item container we want the individual items to move to the left -25%. This
+  will get us a very smooth transition.
+
+  sliding to the right:
+  - the next thing to do is to make the element that is hovered on slide to the right.we do this with:
+
+                    .item:hover ~ .item{
+                      transform: translate(25%);
+                    }
+
+- this is saying that on the hover of an item we want the next item to be translated to the right by 25%. the result
+is a pretty cool effect that relies on hovers to give the effect that the images are being shifted over as we go through
+them.
+
+- so basically all that we have done so far is create a container with items inside of it. set the display on the
+container to be flex and then style the items to a width and height and on the items we set a translate that will allow us
+to create a smooth transtion wil the hover effect
+- so then go item.container:hover .item{transform:translate -25%} this will mean that when we hover over the image container
+we are going to move all the items -25%
+- then we go .item:hover ~ .item{transform: translate(25%)} this means that when we hover over an item the item to the
+right of it will move to the right 25%
+
+scaling effect:
+- the last thing that we are going to do is apply the scaling effect, then thing that will make the item larger when we
+hover over it.
+- what we have to do is apply another transform with a scale of 1.5%
+- the scaling will fill the gaps so that
+
+
+
+CREATING THE SLIDER:
+- so we know what we want a container with items in it that. SO I think that the main Idea of the slider
+- so the first thing we need to do is to create an image container with a lot of items inside of it and have them go off
+screen
+
+- I need to figure out how to get the images to show side by side and have them go off screen. so we have gotten the items
+to display off screen, not 100% sure how but it happened and that is ok with me. when I created some dummy elements with
+just divs they all stayed on screen but when I mapped over the items from the fake info and put everything into a compoenent
+then it seemed to work
+- Now I have to create the buttons. Now that I have the buttons. I need to do a transform on the image-container-wrapper
+to make it move to the left or the right. nextflix uses a translate3d, whatever, that is.
+- to create the sliding effect on the slider we are going to have to move it with the transform attribute on the slider-wrapper
+because that is the thing that is going to move positions. so the moving the position wasn't actually that bad.
+- so when creating a slider just think. I need a container and a container wrapper and then items inside of that container
+wrapper. The animation is just moving over the image-slider-wrapper a specified amount with transform:translateX()
+
+- the next thing that we want to create is the the hover effects
+- so to do the hover effects we need to create a pushing or the elments to the right and a pushing of the element to the left
+and then have the image scale up to fit the gap
+- first create the image sliding over to the left
+
+CREATING THE HOVER EFFECT:
+-this is basically us creating an element that moves the other elements to the right, left and then scales up to fill
+the space that is left over
+- the first thing that we are going to do is to push the element to the left. we do this by
+
+      item-wrapper-container:hover .item{
+          transform: translateX(-25%)
+      }
+
+- this is saying that when we hover over the item-wrapper-contianer it is going to push the current item over to the left
+
+- then we are going to push stuff over to the right
+
+      item:hover ~ item{
+        transform:translateX(25%)
+      }
+
+- this is saying that when ever we hover over an item we want the item to the right of it to move over to the right
+
+- the last thing we do is scale up to the space provided
+
+    item:hover{
+    transform: scale(1.5);
+    }
+
+- this is just saying that when we hover over an item we want it to create the a scaled up version of the image.
+- now I have to figure out the api.
+
+WORKING WITH THE API:
+- so we need to delete the fakeInfo and get that information from the api
+- so lets just try to get the information that we want form the api, lets use the useEffect Hook
+- we are also going to use axios for the api call
+- now That I have made the API call I will have to do some big boy destrucuring because thye are giving me back a lot of info
+- it says that we can create nested structures to pull out nested values from the objects.
+- the array of data that we now have is the result of the two events. then we want to go through that array and pull
+out the images of each one
+
+- so we will go in and get an array like we have, then we want to loop over the array and pull out the images form
+the image array
+-when are using useEffect it will normally run when the component runs and also when the component updates, this can
+reslut in a bug when the whole page just keeps reloading over and over.so we provide useEffect with an empty dependency array
+- so an empty dependency array on the useEffect means that it only runs once when the component mounts
+
+- so right now we still need to be able to get stuff out from data
+- I think we want to create our own hook here. we want the hook to be given the initila data filtered form the api request
+- we want the hook to grab the names and the first image from the data that we recieve and to return those values
+
+CREATING THE HOOKS:
+-a custom hook is a javascript function thats name starts with "use" and that may call other hooks
+- nothing specail about it except to make sure that the name starts with use.
+- so the custom hook was a bit of a red harren.
+
+- I want to get the name next. I have the name now I want to make a redirect based on what was clicked.
+- so I need to now That I have the id and the api call. I have to work out the redirecting, I am pretty sure it has
+something to do with the history object from react router
+
+- the easiest way to redirect is to use the redirect component. so the redirect component is literally a thing from
+react-router-dom. import { Redirect } from 'react-router-dom'
+
+- so I think that we have to mess around with the history object.
+
+THE HISTORY OBJECT:
+-when we use the .push() on the history object we are just pushing stuff on the history stack.
+- the useHistory hook gives us access to the history instance that we can use to navigate
+
+
+so what info do I want for the individual pages? this is actually a chance to make things pretty
+
+1) the image
+2)the name
+3)status
+4)attractions -> name
+5) seating map
+
+- so first lets make the request. so we got the first request down but now I want to make an enviroment varible for
+my API key.
+
+ENVIROMENT VARIBLE:
+- it is a key value pair that is stored on the local systme where your code/app is being run and is accessible from
+within the code. THis will help us not accendentialy commit something to git hub
+
+- we can use printenv to see all the environment variables.
+- we create a local file with the api keys inside of it and then we use the source command to source the file into
+the local enviroment.
+-ok so maybe we don't use that because we don't have access to the source command, that seems like an linux thing
+
+- the best way to store secrets in our app is not to store secrets in our app
+- so I guess I don't really have to worry about securly storing this api key I will just put my credentials in a seperate
+file and sure that I do not commit it
+- so that made us get the dreaded CORS error. Now I have to figure out why that is happening.
+- why are we getting the CORS error? the error is coming from the browser implementing the same-origin policy
+- this fights one of the most common cyber attacks out there: cross-site request forgery. this is where a malicious website
+attempts to take advantage of the browser's cookie storage system. for every HTTP request to a domain, the browser
+attaches any HTTP cookies associated with that domain. this is useful for authentication and setting sessions.
+- everytime you click around facebook and don't have to log in over and over again is because the API reconizes the
+stored session cookie upon further HTTP-requests
+   

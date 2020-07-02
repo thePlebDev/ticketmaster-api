@@ -1,0 +1,24 @@
+div.form-container{
+
+  width: 100%;
+  text-align: center;
+  margin-top: 40px;
+  select{
+
+    width: 95%;
+    height: 40px;
+    padding: 1px;
+    border: 1px solid rgb(153, 153, 153);
+    margin-bottom: 3px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    transition: 1s ease;
+
+  }
+  .toronto{
+    font-size: 20px;
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+}

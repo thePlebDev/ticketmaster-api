@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 
 import ImageSlider from '../ImageSlider';
+import APIKEY from '../../APIKEY';
 
 const HomeRequest = ()=>{
   // https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=1&dmaId=527&apikey=z8pipqaTCCTQc1R0OGDLl4bnygjdiXH3
@@ -18,7 +19,7 @@ const HomeRequest = ()=>{
 
 
   useEffect(()=>{
-    axios.get('https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=10&dmaId=527&')
+    axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=10&dmaId=527&apikey=${APIKEY}`)
       .then(doc=>{
         const asyncData = doc.data._embedded.events
 

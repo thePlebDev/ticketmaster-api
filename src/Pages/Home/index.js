@@ -1,6 +1,7 @@
 import React from 'react';
 
 import HomeRequest from '../../components/HomeRequest';
+import Form from '../../components/inputForm';
 
 
 const Home = ()=>{
@@ -8,7 +9,7 @@ const Home = ()=>{
   return(
 
     <div>
-      <HomeRequest />
+      <Form />
     </div>
   )
 }
