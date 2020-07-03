@@ -1,7 +1,6 @@
 div.form-container{
 
   width: 100%;
-  text-align: center;
   margin-top: 40px;
   select{
 
@@ -10,6 +9,7 @@ div.form-container{
     padding: 1px;
     border: 1px solid rgb(153, 153, 153);
     margin-bottom: 3px;
+    margin-left: 15px;
     font-size: 20px;
     letter-spacing: 1px;
     transition: 1s ease;

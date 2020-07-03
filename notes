@@ -330,6 +330,83 @@ file and sure that I do not commit it
 - this fights one of the most common cyber attacks out there: cross-site request forgery. this is where a malicious website
 attempts to take advantage of the browser's cookie storage system. for every HTTP request to a domain, the browser
 attaches any HTTP cookies associated with that domain. this is useful for authentication and setting sessions.
-- everytime you click around facebook and don't have to log in over and over again is because the API reconizes the
+- every time you click around facebook and don't have to log in over and over again is because the API recognize the
 stored session cookie upon further HTTP-requests
-   
+
+-So I guess I should probably try to understand what CORS is. it is a mechanism that uses additional HTTP headers
+to tell browsers to give a web application running at one origin, access to selected resources from a different origin
+- a web application executes a cross-origin HTTP request when it requests a resource that had a different origin from
+its own.
+CORS = cross-origin-resource sharing. a web aplication makes a CORS request when it requests a resource that has a
+different origin from its own.
+- for security reasons, browsers restrict cross-origin HTTP requests initiated from scripts.
+-XMLHttpRequest and the Fetch API follow the same-origin policy. This means that a web application using those APIs
+can only request resources from the same origin the application was loaded from unless the response from other
+origins includes the right CORS headers. So my problem is that i dont have the right request headers?
+
+- some requests don't trigger a CORS preflight. turns out my api call was just wrong.....
+
+-now I need to figure out how to control the value of select tags in React. ya so we need to set the values of there
+stuff to be a react value, so that means we need a handle change and to set the value to the value that is a React state
+
+-so now lets look at the api docs and see what values we can use to filter for distance and categories.
+
+for the info that I want form the api, I want the dates,title and the location
+- now I am going to do up the styling. so I think I have the basic styling down, now I want to create a modal to pop up
+everytime that I click the icon
+
+- so the basic Idea is that we have a modal that will appear and disapear based on the toggeling of a state. The state
+value trigger will be the weird little icon
+- so first lets get to creating how the modal will look.
+
+TRANSITIONING WITH REACT TRANSTION GROUP:
+
+- so the transition component works by animating the mounting and unmounting of a component, but it can also be used to describe
+in-place transition. But what even is mounting.
+
+mounting:
+- the main job is to figure out how to modify the DOM to match what the components want to be rendered on the screen
+- react does this by mounting, which means adding nodes to the DOM. Unmounting means removing them from the DOM and
+updating/making changes to nodes already in the DOM.
+- so bascially mounting is just when react renders a component. so I think that it is going to work or us
+
+- the 4 main states a Transition can be is 'entering', entered, exiting and exited.
+-the transtion is toggeled via the in prop. When true the component begins to "Enter" stage. During this stage, the component will
+shift from its current transition state to entering fro the duration of the transition and then to the 'entered' stage once its
+complete
+- so first we will define a duration variable, this will be how long the transition will take place
+- so looks like we will define our default styles, that is going to be height of 0 and a display of none;
+- then we define the transition styles with entering entered, exiting and exited
+- then we wrap what we want to animate inside of a Transition component.
+
+- we are going to create a new file for the transition values  and I am going to use IIFE for creating the module.
+        const thingy = (function(){
+                  statements...
+        })();
+
+- using iife will make sure that we do not pollute the global state.
+-an IIFE is a way to execute functions immediately, as soon as they are created. the function syntax doesnt matter.
+- so the transition is toggeled via the in prop
+
+- the arrow function that uses state is called a function child and it is used instead of a React element. This function is called
+with the current transition status(entering,entered,exiting,exited). Whichcan be used to apply specific props to a component.
+but it doesnt look like its necessary. never mind it looks very necessary.
+
+
+REST PARAMETERS:
+- the rest parameter is indicated by three dots(...) preceding a named parameter, that named parameter becomes an Array
+containing the rest of the parameters passed to the function. this is where the name rest comes from
+- so three dots before a parameter means the rest of those parameters. the Rest parameters seems like it is only used in a function
+- there can actually only be one rest parameter and it has to be last.
+- I think what we want to know is the spread operator
+
+THE SPREAD OPERATOR:
+-The rest parameter allows us to specify that multiple independent arguments should be combined into an array
+- the spread operator allows us to specify an array that should be split and passed in as seperate arguments to a function
+- so when we are using it we are saying that we want to spread out all the values that are inside of it
+
+
+REACT TRANSITION GROUP ANIMATIONS:
+- it allows us to animate when the component is being mounted, unmounted and when it is show
+- the CSSTransition allows us to do the animation in css
+- the CSSTransition gives us access to stages and then we can use them to animate inside of css 

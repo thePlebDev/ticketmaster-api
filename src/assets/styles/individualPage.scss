@@ -4,7 +4,6 @@ div.info-container{
   flex-direction: column;
   text-align: center;
   font-family: 'Roboto';
-  position: relative;
   margin-top: 10px;
 
 
@@ -45,4 +44,9 @@ div.info-container{
     margin-top: 10px;
     opacity: 0.3;
   }
+}
+a{
+  list-style: none;
+  text-decoration: none;
+  color: white;
 }

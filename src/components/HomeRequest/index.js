@@ -10,7 +10,6 @@ const HomeRequest = ()=>{
 
 
   const [index,setIndex] = useState(0)
-  const [data,setData] = useState('')
   const[isLoading,setIsLoading] = useState(true)
   const [images,setImages] = useState([])
   const [titles,setTitles] = useState([])

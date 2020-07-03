@@ -1,15 +1,40 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {Link} from 'react-router-dom';
 
 
-const IndividualPage =()=>{
+import Modal from '../../components/Modal';
+
+
+
+const IndividualPage =({event})=>{
+
+
+
+  const handleClick = ()=>{
+
+    console.log(event)
+
+  }
+
+
 
   return(
-    <div className='info-container'>
-      <div className='info-date'>Sep 28,2019 - May 11,2020 </div>
-      <div className='info-title'>Long Beach Sympony Classics</div>
-      <div className='info-info'>Terrance Theatre - Long Beach Convention and Entertainment Center - Long Beach, CA</div>
-      <div className='info-icon'><i class="fas fa-ellipsis-v"></i></div>
-      <div className='bottom-border'></div>
+    <div className="indiv-page-container">{
+      event?
+        event.map((item,index)=>{
+        return  <div className='info-container' key={item.id}>
+                  <div className='info-date' >{item.dates.start.localDate}</div>
+                  <div className='info-title'>{item.name}</div>
+                  <div className='info-info'>{item._embedded.venues[0].name}</div>
+                  <div className='info-icon' onClick={()=>handleClick()}>{item.dates.status.code}</div>
+                  <button type="button" className="ticket-button">
+                    <a href={`${item._embedded.venues[0].url}`} rel='noreferrer' target="_blank" >See Ticket Info</a>
+                  </button>
+                  <div className='bottom-border'></div>
+                </div>
+        })
+      :''
+    }
     </div>
   )
 }

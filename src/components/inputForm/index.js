@@ -6,10 +6,12 @@ import APIKEY from '../../APIKEY';
 import IndividualPage from '../../Pages/IndividualPage';
 
 
+
 const Form = ()=>{
   const [values,setValues] = useState('Music');
   const [events,setEvents] = useState([]);
-  const [isLoading,setIsLoading]= useState(true);
+  const [isLoading,setIsLoading] = useState(true)
+  const [names,setNames] = useState([])
 
   const handleChange = (event)=>{
     setValues(event.target.value)
@@ -18,14 +20,17 @@ const Form = ()=>{
   useEffect(()=>{
     axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?classificationName=${values}&size=10&dmaId=527&apikey=${APIKEY}`)
       .then(doc=>setEvents(doc.data._embedded.events))
-      .then()
+      .then(setIsLoading(false))
       .catch(err=>console.log(err))
   },[values])
 
+  const handleClick=()=>{
+    console.log(events)
+  }
 
   return(
-    <div className="form-container">
-      <div className="toronto"> Near Toronto, ON</div>
+    <div className="form-container" >
+      <div className="toronto" onClick={()=>handleClick()}> Near Toronto, ON</div>
       <form >
       <select id="events" name="event" value={values} onChange={(event)=>handleChange(event)}>
           <option value="Music">Music</option>
@@ -33,10 +38,13 @@ const Form = ()=>{
           <option value="Arts and Theatre">Arts and Theatre</option>
           <option value="Family">Family</option>
           <option value="Film">Film</option>
-          <option value="Misc">Misc</option>
       </select>
       </form>
-      <IndividualPage />
+
+      {
+          isLoading ? '' : <IndividualPage event={events} />
+      }
+
     </div>
   )
 }

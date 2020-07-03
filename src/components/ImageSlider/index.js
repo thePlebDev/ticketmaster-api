@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 
 
 const ImageSlider = ({images,titles,dates,ids})=>{
-  const [redirect, setRedirect] = useState(false)
+
   const history = useHistory();
 
   const handleClick =()=>{
