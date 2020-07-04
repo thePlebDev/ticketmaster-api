@@ -409,4 +409,29 @@ THE SPREAD OPERATOR:
 REACT TRANSITION GROUP ANIMATIONS:
 - it allows us to animate when the component is being mounted, unmounted and when it is show
 - the CSSTransition allows us to do the animation in css
-- the CSSTransition gives us access to stages and then we can use them to animate inside of css 
+- the CSSTransition gives us access to stages and then we can use them to animate inside of css. it will add and
+remove those classes all by its self
+- ok well the animation is something that I can work on later. Can't get the animation and I am kinda bored with it
+so right now I will work on getting the information from the api
+- so I need to use useEffect to get the data and get it to look pretty.
+
+- grab the starting date and time first
+
+- so what do I want to do with this function?
+- I want to be able to loop over the list of data and have it return the names, just the names for now
+- I feel uncomfortable using the UseEffect hook, I think I am going to read a little more on how to use it and how it
+actually works.
+- so What I think we are going to do is take that data and pass it down to the component and then filter it there
+
+UseEffect:
+-we are going to use a side effect that does not require clean up
+- when we use this Hook we are telling React that they component needs to do something after render
+
+- I think I have to rethink how I am going to get this. So I am not entirely sure about how this is going to work
+but I do think That I need to read up more on using map in React
+
+- so I am definetly stuck, so I am going to do some reading to see what I can find.
+
+
+PAGINATION:
+- 

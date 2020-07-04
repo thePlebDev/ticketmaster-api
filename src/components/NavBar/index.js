@@ -28,10 +28,10 @@ useEffect(()=>{
 
   return(
     <nav className="nav-conainer"
-    style={{background: 'background'}}
+    style={{background: '#026cdf'}}
     >
     <div className="logo-container">
-      <div className={'logo'}>Logo</div>
+    <div className={'logo'}> Ticket Master API</div>
       <div
       className='close-button'
       ref={ulNode}
@@ -39,7 +39,7 @@ useEffect(()=>{
     </div>
       <ul
         className={navOpen? 'ul-container': 'ul-container-close'}
-        style={{background:'background'}}>
+        style={{background:'#026cdf'}}>
         {navLinks.map((link,index)=>{
           return<li key={link.key}
                   onMouseEnter={ ()=> setHoverIndex(index)}

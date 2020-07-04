@@ -7,7 +7,6 @@ import Modal from '../../components/Modal';
 
 
 const IndividualPage =({event})=>{
-  console.log(event)
 
 
   const handleClick = (e)=>{
